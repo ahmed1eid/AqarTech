@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  /* ربط متغير Cairo المعرف في Layout بالمتغيرات المحلية */
+  --font-cairo: var(--font-cairo); 
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* جعل Cairo هو الخط الأساسي (Sans) في Tailwind */
+  --font-sans: var(--font-cairo), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* استخدام المتغير لضمان تطبيق Cairo على كل نصوص الموقع */
+  font-family: var(--font-cairo), sans-serif;
+  /* تحسين عرض الخطوط العربية */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}

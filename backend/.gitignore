@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environmental Variables (CRITICAL)
+# هذا الملف يحمي بيانات قاعدة البيانات التي وضعناها في .env
+.env
+
+# Optional: compiled files
+dist/
+
+# IDE files
+.vscode/
+.idea/
