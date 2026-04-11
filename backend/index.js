@@ -8,7 +8,7 @@ const server = app.listen(PORT, () => {
     console.log(`
     =============================================
     🚀 Server is running on: http://localhost:${PORT}
-    📡 Environment: ${process.env.NODE_ENV || 'development'}
+    📡 Environment: ${process.env.DB_USER || 'development'}
     ✅ Press CTRL+C to stop
     =============================================
     `);

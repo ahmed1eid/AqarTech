@@ -47,18 +47,18 @@ export default function PropertyTable({ data, onDelete, onEdit, onView }: Proper
           {data.map((property) => (
             <TableRow key={property.id} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell>
-                <Typography variant="body2" fontWeight="medium">{property.name}</Typography>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>{property.name}</Typography>
               </TableCell>
               <TableCell>{property.type === 'Apartment' ? 'شقة' : 'فيلا'}</TableCell>
               <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>{property.location}</TableCell>
               <TableCell>
-                <Typography variant="body2" fontWeight="bold" color="primary.main">
+                <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
                   {Number(property.rent_price).toLocaleString()} ر.س
                 </Typography>
               </TableCell>
               <TableCell>{getStatusChip(property.status)}</TableCell>
               <TableCell align="center">
-                <Stack direction="row" spacing={1} justifyContent="center">
+                <Stack direction="row" spacing={1} sx={{ justifyContent: "center" }}>
                   <IconButton onClick={() => onEdit(property)} size="small" sx={{ color: '#1a237e' }}>
                     <Edit size={18} />
                   </IconButton>

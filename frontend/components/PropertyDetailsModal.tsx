@@ -33,10 +33,10 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
       <Box sx={style}>
         {/* Header المودال */}
         <Box sx={{ bgcolor: '#1a237e', color: '#fff', p: 3 }}>
-          <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack direction="row" sx={{ alignItems: "center" }} spacing={2}>
             <Building size={28} />
             <Box>
-              <Typography variant="h6" fontWeight="bold">تفاصيل الوحدة العقارية</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>تفاصيل الوحدة العقارية</Typography>
               <Typography variant="caption" sx={{ opacity: 0.8 }}>رقم المعرف: {property.id}</Typography>
             </Box>
           </Stack>
@@ -45,13 +45,13 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
         <Box sx={{ p: 4 }}>
           <Grid container spacing={3}>
             {/* القسم الأول: معلومات أساسية */}
-            <Grid item xs={12}>
+            <Grid sx={{ xs: 12 }}>
               <Stack spacing={2}>
                 <Box>
-                  <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                  <Typography variant="caption" sx={{ color:"text.secondary" ,display:"block"}} gutterBottom>
                     اسم العقار
                   </Typography>
-                  <Typography variant="body1" fontWeight="bold" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight:"bold" , display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Home size={18} color="#3949ab" /> {property.name}
                   </Typography>
                 </Box>
@@ -59,18 +59,18 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
                 <Divider />
 
                 <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                  <Grid sx={{ xs: 6 }}>
+                    <Typography variant="caption" sx={{ color:"text.secondary" ,display:"block"}} gutterBottom>
                       النوع
                     </Typography>
-                    <Chip 
+                    <Chip
                       label={property.type === 'Apartment' ? 'شقة' : 'فيلا'} 
                       variant="outlined" 
                       size="small" 
                     />
                   </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                  <Grid sx={{ xs: 6 }}>
+                    <Typography variant="caption" sx={{ color:"text.secondary" ,display:"block"}} gutterBottom>
                       الحالة الحالية
                     </Typography>
                     <Chip 
@@ -85,7 +85,7 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
 
                 {/* القسم الثاني: الموقع والسعر */}
                 <Box>
-                  <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                  <Typography variant="caption" sx={{ color:"text.secondary" ,display:"block"}} gutterBottom>
                     الموقع الجغرافي
                   </Typography>
                   <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -94,7 +94,7 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
                 </Box>
 
                 <Paper variant="outlined" sx={{ p: 2, bgcolor: '#f8f9fa', borderRadius: 2, borderStyle: 'dashed' }}>
-                  <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                  <Typography variant="caption" sx={{ color:"text.secondary" ,display:"block"}} gutterBottom>
                     القيمة الإيجارية
                   </Typography>
                   <Typography variant="h5" color="primary.main" fontWeight="bold">

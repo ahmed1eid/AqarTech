@@ -67,20 +67,20 @@ export default function AddPropertyModal({ open, onClose, onAdd, editData }: Add
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
-        <Typography variant="h5" fontWeight="bold" mb={1}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold',mb:1 }} >
           {editData ? 'تعديل بيانات العقار' : 'إضافة عقار جديد'}
         </Typography>
         <Divider sx={{ mb: 3 }} />
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid sx={{ xs: 12 }}>
               <TextField
                 fullWidth label="اسم العقار" name="name"
                 value={formData.name} onChange={handleChange} required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
                 select fullWidth label="نوع العقار" name="type"
                 value={formData.type} onChange={handleChange}
@@ -89,16 +89,18 @@ export default function AddPropertyModal({ open, onClose, onAdd, editData }: Add
                 <MenuItem value="Villa">فيلا</MenuItem>
               </TextField>
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
                 fullWidth label="سعر الإيجار" name="rent_price"
                 type="number" value={formData.rent_price} onChange={handleChange} required
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">ر.س</InputAdornment>,
+                slotProps={{
+                  input: {
+                    startAdornment: <InputAdornment position="start">ر.س</InputAdornment>,
+                  }
                 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid sx={{ xs: 12 }}>
               <TextField
                 fullWidth label="الموقع" name="location"
                 value={formData.location} onChange={handleChange} required

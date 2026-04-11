@@ -34,7 +34,7 @@ export default function Sidebar() {
       }}
     >
       <Box sx={{ p: 3, textAlign: 'center' }}>
-        <Typography variant="h5" fontWeight="bold" sx={{ color: '#fff', letterSpacing: 1 }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#fff', letterSpacing: 1 }}>
           SITY EXPERT
         </Typography>
         <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)' }}>

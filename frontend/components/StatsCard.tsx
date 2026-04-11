@@ -42,10 +42,10 @@ export default function StatsCard({ title, value, icon, color, onClick }: StatsC
         {icon}
       </Box>
       <Box>
-        <Typography variant="body2" color="text.secondary" fontWeight="500">
+        <Typography variant="body2" sx={{ color: "text.secondary", fontWeight: "500" }}>
           {title}
         </Typography>
-        <Typography variant="h5" fontWeight="bold">
+        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           {value}
         </Typography>
       </Box>

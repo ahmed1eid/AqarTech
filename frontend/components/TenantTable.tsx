@@ -49,22 +49,24 @@ export default function TenantTable({ tenants, onDelete }: TenantTableProps) {
             return (
               <TableRow key={tenant.id} hover>
                 <TableCell>
-                  <Stack direction="row" spacing={1} alignItems="center">
+                  <Stack direction="row" spacing={1} sx={{alignItems:"center"}}>
                     <User size={16} color="#666" />
                     <Box>
-                      <Typography variant="body2" fontWeight="bold">{tenant.full_name}</Typography>
-                      <Typography variant="caption" color="text.secondary">{tenant.national_id}</Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>{tenant.full_name}</Typography>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                        {tenant.national_id}
+                      </Typography>
                     </Box>
                   </Stack>
                 </TableCell>
                 <TableCell>{tenant.property_name || 'غير محدد'}</TableCell>
                 <TableCell>
-                  <Typography variant="body2" color="primary.main" fontWeight="bold">
+                  <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 'bold' }}>
                     {Number(tenant.contract_value).toLocaleString()} ر.س
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Stack direction="row" spacing={0.5} alignItems="center">
+                  <Stack direction="row" spacing={0.5} sx={{alignItems:"center"}}>
                     <Calendar size={14} />
                     <Typography variant="body2">{tenant.contract_end}</Typography>
                   </Stack>

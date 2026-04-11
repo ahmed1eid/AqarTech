@@ -58,36 +58,40 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
-        <Typography variant="h5" fontWeight="bold" mb={1}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold',mb:1 }}>
           تسجيل مستأجر جديد
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={3}>
+        <Typography variant="body2" sx={{ color:"text.secondary",mb:3 }} >
           أدخل بيانات المستأجر وربطه بالوحدة السكنية لبدء العقد.
         </Typography>
         <Divider sx={{ mb: 3 }} />
 
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid sx={{ xs: 12 }}>
               <TextField
                 fullWidth label="الاسم الكامل" name="full_name"
                 value={formData.full_name} onChange={handleChange} required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
                 fullWidth label="رقم الهوية" name="national_id"
                 value={formData.national_id} onChange={handleChange} required
-                inputProps={{ maxLength: 10 }} // معايير الهوية الوطنية
+                slotProps={{
+                  input: {
+                    maxLength: 10,
+                  }
+                }} 
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
                 fullWidth label="رقم الجوال" name="phone_number"
                 value={formData.phone_number} onChange={handleChange} required
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid sx={{ xs: 12 }}>
               <TextField
                 select fullWidth label="اختر الوحدة السكنية المتاحة" 
                 name="property_id" value={formData.property_id} onChange={handleChange} required
@@ -99,14 +103,21 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
-                fullWidth type="date" label="بداية العقد" name="contract_start"
-                InputLabelProps={{ shrink: true }}
-                value={formData.contract_start} onChange={handleChange} required
+                fullWidth 
+                type="date" 
+                label="بداية العقد" 
+                name="contract_start"
+                value={formData.contract_start} 
+                onChange={handleChange} 
+                required
+                slotProps={{
+                  inputLabel: { shrink: true }
+                }}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid sx={{ xs: 6 }}>
               <TextField
                 fullWidth type="date" label="نهاية العقد" name="contract_end"
                 InputLabelProps={{ shrink: true }}

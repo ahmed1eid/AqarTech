@@ -142,9 +142,9 @@ export default function Home() {
     <Box sx={{ p: 3, background: '#f5f7fb', minHeight: '100vh' }}>
       {/* Header Section */}
       <Paper elevation={0} sx={{ p: 3, mb: 4, borderRadius: 3, background: 'linear-gradient(135deg, #1a237e, #3949ab)', color: '#fff' }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
-            <Typography variant="h4" fontWeight="bold">لوحة التحكم</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>لوحة التحكم</Typography>
             <Typography variant="body2" sx={{ opacity: 0.8 }}>إدارة العقارات وسلاسل التوريد</Typography>
           </Box>
           <Stack direction="row" spacing={2}>
@@ -174,8 +174,8 @@ export default function Home() {
 
       {/* Dynamic Tables Section */}
       <Paper sx={{ mt: 5, p: 3, borderRadius: 3 }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h6" fontWeight="bold">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb:2 }} >
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
             {viewType === 'properties' && 'العقارات والوحدات السكنية'}
             {viewType === 'tenants' && 'قائمة المستأجرين النشطين'}
             {viewType === 'expiring' && 'تنبيهات العقود المنتهية قريباً'}
@@ -198,7 +198,6 @@ export default function Home() {
           />
         ) : (
           <TenantTable 
-            /* المنطق هنا: إذا كان النوع expiring، استدعِ دالة التصفية، وإلا اعرض الكل */
             tenants={viewType === 'expiring' ? getExpiringTenants() : tenants} 
             onDelete={async (id) => {
               if (confirm('هل تريد حذف المستأجر؟')) {
