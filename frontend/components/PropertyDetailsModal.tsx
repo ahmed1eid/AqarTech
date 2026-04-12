@@ -20,17 +20,7 @@ const style = {
   p: 4,
 };
 
-// 1. تعريف واجهة البيانات لحل مشكلة الـ Type Error
-interface Property {
-  id: number;
-  name: string;
-  type: 'سكني' | 'تجاري';
-  location: string;
-  rent_price: number | string;
-  status: string;
-  description?: string;
-  created_at?: string;
-}
+import { Property } from '@/types/property';
 
 interface PropertyDetailsModalProps {
   open: boolean;
