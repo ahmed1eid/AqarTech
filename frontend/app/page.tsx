@@ -209,7 +209,7 @@ export default function Home() {
         )}
       </Paper>
 
-      {/* Modals Section */}
+      { /* Modals Section */ }
       <AddPropertyModal open={isPropertyModalOpen} onClose={() => {setIsPropertyModalOpen(false); setPropertyToEdit(undefined);}} onAdd={handleAddProperty} editData={propertyToEdit} />
       <AddTenantModal open={isTenantModalOpen} onClose={() => setIsTenantModalOpen(false)} onAdd={handleAddTenant} />
       <PropertyDetailsModal open={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} property={selectedProperty} />

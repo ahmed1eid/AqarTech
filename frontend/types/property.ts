@@ -5,6 +5,6 @@ export interface Property {
   status: 'شاغل' | 'متاح' | 'صيانة';
   unitsCount: number;
   location: string;
-  rent_price: number | string; // السطر ده هو اللي هيحل المشكلة
+  rent_price: number | string;
   income: number;
 }

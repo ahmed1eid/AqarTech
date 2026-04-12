@@ -16,8 +16,16 @@ const style = {
   p: 4,
 };
 
-export default function AddTenantModal({ open, onClose, onAdd }) {
-  const [availableProperties, setAvailableProperties] = useState([]);
+// 1. تعريف الأنواع لـ TypeScript (هذا السطر يحل مشكلة الـ Build Failed)
+interface AddTenantModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (data: any) => void;
+}
+
+// 2. ربط الـ Interface بالمكون
+export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalProps) {
+  const [availableProperties, setAvailableProperties] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     full_name: '',
     national_id: '',
@@ -28,27 +36,29 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
     contract_end: '',
   });
 
-  // جلب العقارات المتاحة فقط لربطها بمستأجر جديد
+  // جلب العقارات المتاحة
   useEffect(() => {
     if (open) {
-      fetch('http://localhost:5000/api/properties')
+      // نستخدم متغير بيئة للرابط أو localhost كاحتياطي
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      fetch(`${apiUrl}/api/properties`)
         .then(res => res.json())
         .then(data => {
-          // فلترة العقارات المتاحة (Available) فقط
-          const available = data.filter(p => p.status === 'available');
+          const available = data.filter((p: any) => p.status === 'available');
           setAvailableProperties(available);
-        });
+        })
+        .catch(err => console.error("Error fetching properties:", err));
     }
   }, [open]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAdd(formData);
-    // تصغير الفورم بعد الإرسال
+    // تفريغ النموذج
     setFormData({
       full_name: '', national_id: '', phone_number: '',
       email: '', property_id: '', contract_start: '', contract_end: ''
@@ -58,10 +68,10 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
-        <Typography variant="h5" sx={{ fontWeight: 'bold',mb:1 }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
           تسجيل مستأجر جديد
         </Typography>
-        <Typography variant="body2" sx={{ color:"text.secondary",mb:3 }} >
+        <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }} >
           أدخل بيانات المستأجر وربطه بالوحدة السكنية لبدء العقد.
         </Typography>
         <Divider sx={{ mb: 3 }} />
@@ -79,9 +89,7 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
                 fullWidth label="رقم الهوية" name="national_id"
                 value={formData.national_id} onChange={handleChange} required
                 slotProps={{
-                  input: {
-                    maxLength: 10,
-                  }
+                  htmlInput: { maxLength: 10 }
                 }} 
               />
             </Grid>
@@ -112,6 +120,7 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
                 value={formData.contract_start} 
                 onChange={handleChange} 
                 required
+                // استخدام slotProps بدلاً من الخصائص المباشرة (MUI v6+)
                 slotProps={{
                   inputLabel: { shrink: true }
                 }}
@@ -119,9 +128,16 @@ export default function AddTenantModal({ open, onClose, onAdd }) {
             </Grid>
             <Grid sx={{ xs: 6 }}>
               <TextField
-                fullWidth type="date" label="نهاية العقد" name="contract_end"
-                InputLabelProps={{ shrink: true }}
-                value={formData.contract_end} onChange={handleChange} required
+                fullWidth 
+                type="date" 
+                label="نهاية العقد" 
+                name="contract_end"
+                value={formData.contract_end} 
+                onChange={handleChange} 
+                required
+                slotProps={{
+                  inputLabel: { shrink: true }
+                }}
               />
             </Grid>
           </Grid>

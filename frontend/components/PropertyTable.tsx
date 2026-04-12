@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   Table, TableBody, TableCell, TableContainer, TableHead, 
   TableRow, Paper, IconButton, Chip, Typography, Stack
@@ -20,11 +19,11 @@ export default function PropertyTable({ data, onDelete, onEdit, onView }: Proper
   const getStatusChip = (status: string) => {
     switch (status) {
       case 'available':
-        return <Chip label="متاح" color="success" variant="soft" />;
+        return <Chip label="متاح" color="success" variant="outlined" />;
       case 'occupied':
-        return <Chip label="مشغول" color="primary" variant="soft" />;
+        return <Chip label="مشغول" color="primary" variant="outlined" />;
       case 'maintenance':
-        return <Chip label="صيانة" color="warning" variant="soft" />;
+        return <Chip label="صيانة" color="warning" variant="outlined" />;
       default:
         return <Chip label={status} />;
     }
@@ -49,7 +48,7 @@ export default function PropertyTable({ data, onDelete, onEdit, onView }: Proper
               <TableCell>
                 <Typography variant="body2" sx={{ fontWeight: 'medium' }}>{property.name}</Typography>
               </TableCell>
-              <TableCell>{property.type === 'Apartment' ? 'شقة' : 'فيلا'}</TableCell>
+              <TableCell>{property.type === 'سكني' ? 'شقة' : 'فيلا'}</TableCell>
               <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>{property.location}</TableCell>
               <TableCell>
                 <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
