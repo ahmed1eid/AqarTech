@@ -48,7 +48,7 @@ export default function PropertyTable({ data, onDelete, onEdit, onView }: Proper
               <TableCell>
                 <Typography variant="body2" sx={{ fontWeight: 'medium' }}>{property.name}</Typography>
               </TableCell>
-              <TableCell>{property.type === 'سكني' ? 'شقة' : 'فيلا'}</TableCell>
+              <TableCell>{property.type === 'Apartment' ? 'شقة' : property.type === 'Villa' ? 'فيلا' : property.type}</TableCell>
               <TableCell sx={{ color: 'text.secondary', fontSize: '0.85rem' }}>{property.location}</TableCell>
               <TableCell>
                 <Typography variant="body2" sx={{ fontWeight: 'bold', color: 'primary.main' }}>

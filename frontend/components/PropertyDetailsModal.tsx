@@ -40,9 +40,9 @@ export default function PropertyDetailsModal({ open, onClose, property }: Proper
             تفاصيل العقار
           </Typography>
           <Chip 
-            // حل مشكلة المقارنة: المقارنة الآن مع القيم العربية الموجودة في الـ Database
-            label={property.type === 'سكني' ? 'وحدة سكنية' : 'وحدة تجارية'}
-            color={property.type === 'سكني' ? 'primary' : 'secondary'}
+            // عرض النوع بناءً على القيم الفعلية من قاعدة البيانات
+            label={property.type === 'Apartment' ? 'شقة سكنية' : property.type === 'Villa' ? 'فيلا' : property.type}
+            color={property.type === 'Apartment' ? 'primary' : 'secondary'}
             variant="outlined"
             size="small"
           />

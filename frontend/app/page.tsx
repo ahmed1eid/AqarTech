@@ -12,9 +12,9 @@ import PropertyDetailsModal from '../components/PropertyDetailsModal';
 import TenantTable from '../components/TenantTable';
 import { Property } from '@/types/property';
 
-const API_URL = 'http://localhost:5000/api/properties';
-const TENANT_API_URL = 'http://localhost:5000/api/tenants';
-const STATS_API_URL = 'http://localhost:5000/api/stats/summary';
+const API_URL = process.env.NEXT_PUBLIC_API_URL + '/api/properties';
+const TENANT_API_URL = process.env.NEXT_PUBLIC_API_URL + '/api/tenants';
+const STATS_API_URL = process.env.NEXT_PUBLIC_API_URL + '/api/stats/summary';
 
 export default function Home() {
   const [viewType, setViewType] = useState<'properties' | 'tenants' | 'expiring'>('properties');
