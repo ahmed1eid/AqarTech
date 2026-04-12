@@ -108,26 +108,39 @@ app.post('/api/tenants', async (req, res) => {
   }
 });
 
-// 3. حذف مستأجر
+// 3. حذف مستأجر وكل الشقق المحجوزة منه
 app.delete('/api/tenants/:id', async (req, res) => {
   const { id } = req.params;
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
     
-    // 1. جلب معرف العقار قبل حذف المستأجر
-    const tenantResult = await client.query('SELECT property_id FROM tenants WHERE id = $1', [id]);
+    // 1. جلب رقم الهوية للمستأجر قبل الحذف
+    const tenantResult = await client.query('SELECT national_id, property_id FROM tenants WHERE id = $1', [id]);
     
     if (tenantResult.rows.length > 0) {
-      const propertyId = tenantResult.rows[0].property_id;
-      // 2. حذف المستأجر
-      await client.query('DELETE FROM tenants WHERE id = $1', [id]);
-      // 3. إعادة العقار لحالة "متاح"
-      await client.query('UPDATE properties SET status = $1 WHERE id = $2', ['available', propertyId]);
+      const nationalId = tenantResult.rows[0].national_id;
+      
+      if (nationalId) {
+        // 2. إعادة جميع العقارات الخاصة به لحالة "متاح"
+        await client.query(`
+          UPDATE properties 
+          SET status = 'available' 
+          WHERE id IN (SELECT property_id FROM tenants WHERE national_id = $1)
+        `, [nationalId]);
+
+        // 3. حذف جميع السجلات المتعلقة بهذا المستأجر
+        await client.query('DELETE FROM tenants WHERE national_id = $1', [nationalId]);
+      } else {
+        // احتياطي في حال عدم وجود رقم هوية (السجلات القديمة مثلاً)
+        const propertyId = tenantResult.rows[0].property_id;
+        await client.query('DELETE FROM tenants WHERE id = $1', [id]);
+        await client.query('UPDATE properties SET status = $1 WHERE id = $2', ['available', propertyId]);
+      }
     }
 
     await client.query('COMMIT');
-    res.json({ message: 'تم حذف المستأجر وإخلاء العقار بنجاح' });
+    res.json({ message: 'تم حذف المستأجر وإخلاء جميع عقاراته بنجاح' });
   } catch (err) {
     await client.query('ROLLBACK');
     res.status(500).json({ error: err.message });
