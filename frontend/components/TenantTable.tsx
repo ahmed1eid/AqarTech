@@ -22,13 +22,18 @@ interface TenantTableProps {
 
 export default function TenantTable({ tenants, onDelete, onEdit }: TenantTableProps) {
   
-  // دالة لحساب ما إذا كان العقد ينتهي خلال 30 يوماً (لتحقيق شرط التنبيهات في المهمة)
-  const isExpiringSoon = (expiryDate: string) => {
+  // دالة لحساب حالة العقد (لتوافق ما تعيده الخوادم)
+  const getContractStatus = (expiryDate: string) => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const end = new Date(expiryDate);
+    end.setHours(0, 0, 0, 0);
     const diffTime = end.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays >= 0 && diffDays <= 30;
+    
+    if (diffDays < 0) return 'expired';
+    if (diffDays <= 30) return 'expiring';
+    return 'active';
   };
 
   return (
@@ -46,7 +51,7 @@ export default function TenantTable({ tenants, onDelete, onEdit }: TenantTablePr
         </TableHead>
         <TableBody>
           {tenants.map((tenant) => {
-            const expiring = isExpiringSoon(tenant.contract_end);
+            const status = getContractStatus(tenant.contract_end);
             return (
               <TableRow key={tenant.id} hover>
                 <TableCell>
@@ -73,11 +78,18 @@ export default function TenantTable({ tenants, onDelete, onEdit }: TenantTablePr
                   </Stack>
                 </TableCell>
                 <TableCell>
-                  {expiring ? (
+                  {status === 'expired' ? (
+                    <Chip 
+                      icon={<AlertCircle size={14} />} 
+                      label="منتهي" 
+                      color="error" 
+                      size="small" 
+                    />
+                  ) : status === 'expiring' ? (
                     <Chip 
                       icon={<AlertCircle size={14} />} 
                       label="قرب الانتهاء" 
-                      color="error" 
+                      color="warning" 
                       variant="outlined" 
                       size="small" 
                     />

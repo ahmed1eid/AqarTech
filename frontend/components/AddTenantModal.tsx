@@ -74,15 +74,19 @@ export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTe
       fetch(`${apiUrl}/api/properties`)
         .then(res => res.json())
         .then(data => {
-          const available = data.filter((p: any) => p.status === 'available');
-          // دمج العقار الحالي في حال التعديل
-          if (editData && editData.property_id) {
-             const currentProp = data.find((p:any) => p.id === editData.property_id);
-             if (currentProp && !available.find((p:any)=>p.id === currentProp.id)) {
-                 available.push(currentProp);
-             }
+          if (Array.isArray(data)) {
+            const available = data.filter((p: any) => p.status === 'available');
+            // دمج العقار الحالي في حال التعديل
+            if (editData && editData.property_id) {
+              const currentProp = data.find((p:any) => p.id === editData.property_id);
+              if (currentProp && !available.find((p:any)=>p.id === currentProp.id)) {
+                  available.push(currentProp);
+              }
+            }
+            setAvailableProperties(available);
+          } else {
+            console.error("البيانات القادمة ليست مصفوفة:", data);
           }
-          setAvailableProperties(available);
         })
         .catch(err => console.error("Error fetching properties:", err));
     }

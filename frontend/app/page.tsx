@@ -115,12 +115,14 @@ export default function Home() {
 
   const getExpiringTenants = () => {
     const today = new Date();
-    const nextMonth = new Date();
+    today.setHours(0, 0, 0, 0);
+    const nextMonth = new Date(today);
     nextMonth.setDate(today.getDate() + 30);
 
     return tenants.filter((t: any) => {
       const end = new Date(t.contract_end);
-      return end >= today && end <= nextMonth;
+      end.setHours(0, 0, 0, 0);
+      return end.getTime() <= nextMonth.getTime();
     });
   };
 
