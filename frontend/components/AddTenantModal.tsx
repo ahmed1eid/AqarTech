@@ -21,10 +21,11 @@ interface AddTenantModalProps {
   open: boolean;
   onClose: () => void;
   onAdd: (data: any) => void;
+  editData?: any;
 }
 
 // 2. ربط الـ Interface بالمكون
-export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalProps) {
+export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTenantModalProps) {
   const [availableProperties, setAvailableProperties] = useState<any[]>([]);
   const [formData, setFormData] = useState({
     full_name: '',
@@ -34,7 +35,36 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
     property_id: '',
     contract_start: '',
     contract_end: '',
+    contract_value: ''
   });
+
+  // تحديث النموذج إذا كان هناك بيانات للتعديل أو تفريغه
+  useEffect(() => {
+    if (editData) {
+      setFormData({
+        full_name: editData.full_name || '',
+        national_id: editData.national_id || '',
+        phone_number: editData.phone_number || '',
+        email: editData.email || '',
+        property_id: editData.property_id || '',
+        contract_start: editData.contract_start || '',
+        contract_end: editData.contract_end || '',
+        contract_value: editData.contract_value || ''
+      });
+      // للتعديل نضيف العقار الحالي للقائمة المتاحة لكي يكون متاحاً للاختيار (لأنه مشغول حالياً)
+      if (editData.property_id && editData.property_name) {
+         setAvailableProperties(prev => {
+             if(prev.find(p => p.id === editData.property_id)) return prev;
+             return [...prev, { id: editData.property_id, name: editData.property_name, location: '' }];
+         });
+      }
+    } else {
+      setFormData({
+        full_name: '', national_id: '', phone_number: '',
+        email: '', property_id: '', contract_start: '', contract_end: '', contract_value: ''
+      });
+    }
+  }, [editData]);
 
   // جلب العقارات المتاحة
   useEffect(() => {
@@ -45,11 +75,18 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
         .then(res => res.json())
         .then(data => {
           const available = data.filter((p: any) => p.status === 'available');
+          // دمج العقار الحالي في حال التعديل
+          if (editData && editData.property_id) {
+             const currentProp = data.find((p:any) => p.id === editData.property_id);
+             if (currentProp && !available.find((p:any)=>p.id === currentProp.id)) {
+                 available.push(currentProp);
+             }
+          }
           setAvailableProperties(available);
         })
         .catch(err => console.error("Error fetching properties:", err));
     }
-  }, [open]);
+  }, [open, editData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,21 +95,16 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAdd(formData);
-    // تفريغ النموذج
-    setFormData({
-      full_name: '', national_id: '', phone_number: '',
-      email: '', property_id: '', contract_start: '', contract_end: ''
-    });
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
         <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-          تسجيل مستأجر جديد
+          {editData ? 'تعديل بيانات المستأجر' : 'تسجيل مستأجر جديد'}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }} >
-          أدخل بيانات المستأجر وربطه بالوحدة السكنية لبدء العقد.
+          {editData ? 'قم بتحديث بيانات المستأجر أو تغيير الوحدة السكنية.' : 'أدخل بيانات المستأجر وربطه بالوحدة السكنية لبدء العقد.'}
         </Typography>
         <Divider sx={{ mb: 3 }} />
 
@@ -101,12 +133,19 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
             </Grid>
             <Grid sx={{ xs: 12 }}>
               <TextField
+                fullWidth label="قيمة العقد (ر.س)" name="contract_value"
+                type="number"
+                value={formData.contract_value} onChange={handleChange} required
+              />
+            </Grid>
+            <Grid sx={{ xs: 12 }}>
+              <TextField
                 select fullWidth label="اختر الوحدة السكنية المتاحة" 
                 name="property_id" value={formData.property_id} onChange={handleChange} required
               >
                 {availableProperties.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
-                    {option.name} - {option.location}
+                    {option.name} - {option.location || ''}
                   </MenuItem>
                 ))}
               </TextField>
@@ -117,7 +156,8 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
                 type="date" 
                 label="بداية العقد" 
                 name="contract_start"
-                value={formData.contract_start} 
+                // Extract only the date part YYYY-MM-DD
+                value={formData.contract_start ? formData.contract_start.split('T')[0] : ''} 
                 onChange={handleChange} 
                 required
                 // استخدام slotProps بدلاً من الخصائص المباشرة (MUI v6+)
@@ -132,7 +172,7 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
                 type="date" 
                 label="نهاية العقد" 
                 name="contract_end"
-                value={formData.contract_end} 
+                value={formData.contract_end ? formData.contract_end.split('T')[0] : ''} 
                 onChange={handleChange} 
                 required
                 slotProps={{
@@ -147,7 +187,7 @@ export default function AddTenantModal({ open, onClose, onAdd }: AddTenantModalP
               fullWidth variant="contained" type="submit"
               sx={{ bgcolor: '#1a237e', py: 1.5, fontWeight: 'bold' }}
             >
-              حفظ البيانات وبدء العقد
+              {editData ? 'تحديث البيانات' : 'حفظ البيانات وبدء العقد'}
             </Button>
             <Button fullWidth variant="outlined" onClick={onClose} color="inherit">
               إلغاء

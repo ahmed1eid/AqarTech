@@ -3,7 +3,7 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead, 
   TableRow, Paper, Chip, Typography, Stack, IconButton, Box
 } from '@mui/material';
-import { User, Calendar, AlertCircle, Trash2 } from 'lucide-react';
+import { User, Calendar, AlertCircle, Trash2, Edit2 } from 'lucide-react';
 
 interface Tenant {
   id: string;
@@ -17,9 +17,10 @@ interface Tenant {
 interface TenantTableProps {
   tenants: Tenant[];
   onDelete: (id: string) => void;
+  onEdit?: (tenant: Tenant) => void;
 }
 
-export default function TenantTable({ tenants, onDelete }: TenantTableProps) {
+export default function TenantTable({ tenants, onDelete, onEdit }: TenantTableProps) {
   
   // دالة لحساب ما إذا كان العقد ينتهي خلال 30 يوماً (لتحقيق شرط التنبيهات في المهمة)
   const isExpiringSoon = (expiryDate: string) => {
@@ -85,9 +86,14 @@ export default function TenantTable({ tenants, onDelete }: TenantTableProps) {
                   )}
                 </TableCell>
                 <TableCell align="center">
-                  <IconButton onClick={() => onDelete(tenant.id)} size="small" color="error">
-                    <Trash2 size={18} />
-                  </IconButton>
+                  <Stack direction="row" spacing={1} sx={{justifyContent:"center"}}>
+                    <IconButton onClick={() => onEdit && onEdit(tenant)} size="small" color="primary">
+                      <Edit2 size={18} />
+                    </IconButton>
+                    <IconButton onClick={() => onDelete(tenant.id)} size="small" color="error">
+                      <Trash2 size={18} />
+                    </IconButton>
+                  </Stack>
                 </TableCell>
               </TableRow>
             );

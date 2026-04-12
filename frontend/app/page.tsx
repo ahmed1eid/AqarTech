@@ -25,6 +25,7 @@ export default function Home() {
   const [isPropertyModalOpen, setIsPropertyModalOpen] = useState(false);
   const [isTenantModalOpen, setIsTenantModalOpen] = useState(false);
   const [propertyToEdit, setPropertyToEdit] = useState<Property | undefined>();
+  const [tenantToEdit, setTenantToEdit] = useState<any>();
   const [dashboardStats, setDashboardStats] = useState({
     total_properties: 0,
     active_tenants: 0,
@@ -125,17 +126,23 @@ export default function Home() {
 
   const handleAddTenant = async (tenantData: any) => {
     try {
-      const response = await fetch(TENANT_API_URL, {
-        method: 'POST',
+      const isEdit = !!tenantToEdit;
+      const url = isEdit ? `${TENANT_API_URL}/${tenantToEdit.id}` : TENANT_API_URL;
+      const response = await fetch(url, {
+        method: isEdit ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tenantData),
       });
       if (response.ok) {
-        showAlert('تم تسجيل المستأجر بنجاح 🎉');
+        showAlert(isEdit ? 'تم تحديث بيانات المستأجر بنجاح 🎉' : 'تم تسجيل المستأجر بنجاح 🎉');
         setIsTenantModalOpen(false);
+        setTenantToEdit(undefined);
         fetchData();
+      } else {
+        const errorData = await response.json();
+        showAlert(errorData.error || 'فشل العملية', 'error');
       }
-    } catch (error) { showAlert('فشل في إضافة المستأجر', 'error'); }
+    } catch (error) { showAlert('فشل في الاتصال بالسيرفر', 'error'); }
   };
 
   return (
@@ -205,13 +212,22 @@ export default function Home() {
                 fetchData();
               }
             }} 
+            onEdit={(tenant) => {
+              setTenantToEdit(tenant);
+              setIsTenantModalOpen(true);
+            }}
           />
         )}
       </Paper>
 
       { /* Modals Section */ }
       <AddPropertyModal open={isPropertyModalOpen} onClose={() => {setIsPropertyModalOpen(false); setPropertyToEdit(undefined);}} onAdd={handleAddProperty} editData={propertyToEdit} />
-      <AddTenantModal open={isTenantModalOpen} onClose={() => setIsTenantModalOpen(false)} onAdd={handleAddTenant} />
+      <AddTenantModal 
+        open={isTenantModalOpen} 
+        onClose={() => {setIsTenantModalOpen(false); setTenantToEdit(undefined);}} 
+        onAdd={handleAddTenant} 
+        editData={tenantToEdit} 
+      />
       <PropertyDetailsModal open={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} property={selectedProperty} />
 
       <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({...snackbar, open: false})}>

@@ -108,7 +108,49 @@ app.post('/api/tenants', async (req, res) => {
   }
 });
 
-// 3. حذف مستأجر وكل الشقق المحجوزة منه
+// 3. تحديث مستأجر
+app.put('/api/tenants/:id', async (req, res) => {
+  const { id } = req.params;
+  const { full_name, national_id, property_id, contract_start, contract_end, contract_value } = req.body;
+  const client = await pool.connect();
+  
+  try {
+    await client.query('BEGIN');
+    
+    // Check old property_id
+    const oldTenantRes = await client.query('SELECT property_id FROM tenants WHERE id = $1', [id]);
+    if (oldTenantRes.rows.length === 0) {
+      return res.status(404).json({ error: "المستأجر غير موجود" });
+    }
+    const oldPropertyId = oldTenantRes.rows[0].property_id;
+
+    // Update tenant
+    const result = await client.query(
+      'UPDATE tenants SET full_name=$1, national_id=$2, property_id=$3, contract_start=$4, contract_end=$5, contract_value=$6 WHERE id=$7 RETURNING *',
+      [full_name, national_id, property_id, contract_start, contract_end, contract_value || 0, id]
+    );
+
+    // If property changed, update statuses
+    if (oldPropertyId !== property_id) {
+      if (oldPropertyId) {
+        await client.query('UPDATE properties SET status = $1 WHERE id = $2', ['available', oldPropertyId]);
+      }
+      if (property_id) {
+        await client.query('UPDATE properties SET status = $1 WHERE id = $2', ['occupied', property_id]);
+      }
+    }
+
+    await client.query('COMMIT');
+    res.json(result.rows[0]);
+  } catch (err) {
+    await client.query('ROLLBACK');
+    res.status(500).json({ error: err.message });
+  } finally {
+    client.release();
+  }
+});
+
+// 4. حذف مستأجر وكل الشقق المحجوزة منه
 app.delete('/api/tenants/:id', async (req, res) => {
   const { id } = req.params;
   const client = await pool.connect();
