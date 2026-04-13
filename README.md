@@ -8,42 +8,42 @@
 
 ## 📌 Overview
 
-**Sity Expert** هو نظام متكامل ومتقدم لإدارة العقارات، يوفر لوحة تحكم تفاعلية وسهلة الاستخدام لمساعدتك على إدارة:
+**AqarTech** is an integrated and advanced property management system that provides an interactive, easy-to-use dashboard to help you manage:
 
-* 🏘️ **العقارات والوحدات السكنية/التجارية**
-* 👥 **المستأجرين وبياناتهم**
-* 💰 **العقود والقيمة الإيجارية**
-* 📈 **الإيرادات والإحصائيات**
+* 🏘️ **Properties and Residential/Commercial Units**
+* 👥 **Tenants and their data**
+* 💰 **Contracts and Rental Values**
+* 📈 **Revenues and Statistics**
 
-المشروع مبني باستخدام **أحدث تقنيات Full-Stack** (Next.js 14+ و Node.js) ومصمم ليكون متجاوباً (Responsive) للعمل بكفاءة على جميع الأجهزة (الموبايل والكمبيوتر).
+Built with the **latest Full-Stack technologies** (Next.js 14+ and Node.js), this project is fully responsive and designed to work efficiently across all devices (Mobile & Desktop).
 
 ---
 
 ## 🎯 Features
 
 ### 📊 Interactive Dashboard
-* عرض إحصائيات لحظية لـ:
-  * إجمالي العقارات
-  * المستأجرين النشطين
-  * الإيرادات الإجمالية
-* واجهة متجاوبة بالكامل (Mobile Responsive).
+* Real-time statistics displaying:
+  * Total Properties
+  * Active Tenants
+  * Total Revenues
+* Fully responsive interface (Mobile Responsive).
 
 ### 🏘️ Property Management
-* إضافة وتعديل وحذف العقارات بسلاسة.
-* متابعة حالة كل وحدة (متاح / مشغول / صيانة).
-* نظام عرض تفصيلي لبيانات العقار.
+* Seamlessly Add, Edit, and Delete properties.
+* Track the status of each unit (Available / Occupied / Maintenance).
+* Detailed property data viewing.
 
 ### 👤 Tenant Management
-* تسجيل بيانات المستأجرين (الاسم، الهوية، الجوال).
-* ربط المستأجرين آلياً بالوحدات السكنية المتاحة.
-* تحديث وحذف بيانات المستأجر وإخلاء الوحدة تلقائياً.
+* Register tenant details (Name, National ID, Phone).
+* Automatically assign tenants to available residential units.
+* Update or delete tenant data and automatically vacate the property.
 
 ### ⏰ Contract Follow-ups
-* تتبع تواريخ بداية ونهاية العقود.
-* **تنبيه ذكي** للعقود التي تقترب من الانتهاء (خلال 30 يوم).
+* Track contract start and end dates.
+* **Smart Alerts** for contracts that are about to expire (within 30 days).
 
 ### 🔒 Security & Data Integrity
-* الاعتماد على تقنيات **SQL Transactions** لضمان دقة وتكامل العمليات في قاعدة البيانات (مثل حجز الشقة بالتزامن مع إضافة المستأجر).
+* Relies on **SQL Transactions** to guarantee data accuracy and integrity (e.g., booking an apartment concurrently with adding a tenant).
 
 ---
 
@@ -65,8 +65,7 @@
 
 ## 🏗️ Project Structure
 
-```bash
-
+\`\`\`
 ├── backend/
 │   ├── src/
 │   │   ├── app.js         # API Routes & Express Server
@@ -81,62 +80,62 @@
 │   └── .env.local         # Frontend Environment variables
 │
 └── README.md
-```
+\`\`\`
 
 ---
 
 ## ⚙️ Setup Instructions
 
 ### 1️⃣ Database Setup
-يمكنك استخدام قاعدة بيانات محلية (PostgreSQL) أو سحابية مثل [Neon.tech](https://neon.tech/).
-تأكد من تشغيل ملف `migrate.js` بالخلفية لإنشاء كافة الأعمدة والجداول المطلوبة.
+You can use a local PostgreSQL database or a cloud-hosted one like [Neon.tech](https://neon.tech/).
+Make sure to execute the `migrate.js` script to create all the required tables and columns.
 
 ### 2️⃣ Backend Initialization
 
-```bash
+\`\`\`bash
 cd backend
 npm install
-```
+\`\`\`
 
-قم بإنشاء ملف `.env` داخل مجلد الـ backend:
-```env
+Create a `.env` file in the backend directory:
+\`\`\`env
 # Database connection string
 DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 PORT=5000
-```
+\`\`\`
 
-ابدأ السيرفر:
-```bash
+Start the server:
+\`\`\`bash
 node ./src/app.js
-# أو باستخدام nodemon للتطوير:
+# Or using nodemon for development:
 # npm run dev 
-```
+\`\`\`
 
 ### 3️⃣ Frontend Initialization
 
-```bash
+\`\`\`bash
 cd frontend
 npm install
-```
+\`\`\`
 
-قم بإنشاء ملف `.env.local` داخل مجلد الـ frontend:
-```env
+Create a `.env.local` file in the frontend directory:
+\`\`\`env
 NEXT_PUBLIC_API_URL=http://localhost:5000
-```
+\`\`\`
 
-ابدأ تطبيق الواجهة الأمامية:
-```bash
+Run the frontend app:
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
 ---
 
 ## 🔮 Future Improvements
 
-* [ ] إضافة نظام تسجيل الدخول والمصادقة (Authentication via JWT)
-* [ ] إضافة رسوم بيانية (Charts) للإحصائيات المالية
-* [ ] توليد التقارير في صيغة PDF و Excel
-* [x] تحسين الـ UI/UX وجعله متجاوبًا للهواتف الذكية (تم الإنجاز ✅)
+* [ ] Add an Authentication System (Login via JWT)
+* [ ] Add Charts for financial statistics
+* [ ] Generate reports in PDF and Excel formats
+* [x] Improve UI/UX and make it fully mobile responsive (Completed ✅)
 
 ---
 
@@ -157,5 +156,5 @@ MIT License
 
 ## 💡 Notes
 
-* تأكد من إضافة الملفات السرية زي `.env` إلى `.gitignore` دائماً.
-* للرفع (Deploy): يمكنك رفع الـ backend على Render أو Railway، والـ frontend على Vercel بسهولة.
+* Always make sure to add sensitive files like `.env` to `.gitignore`.
+* **Deployment:** You can easily deploy the backend on Render or Railway, and the frontend on Vercel.
