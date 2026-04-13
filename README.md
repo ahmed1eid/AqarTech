@@ -1,151 +1,149 @@
 # 🏢 Sity Expert - Property Management System
 
-> 🚀 A modern full-stack property management system to manage properties, tenants, and contracts بسهولة وكفاءة.
+> 🚀 A modern, responsive, and full-stack property management system designed to seamlessly manage properties, tenants, and contracts.
+
+🔗 **Live Demo:** [https://aqar-tech.vercel.app/](https://aqar-tech.vercel.app/)
 
 ---
 
 ## 📌 Overview
 
-**Sity Expert** هو نظام متكامل لإدارة العقارات، بيقدم لوحة تحكم تفاعلية تساعدك تتابع:
+**Sity Expert** هو نظام متكامل ومتقدم لإدارة العقارات، يوفر لوحة تحكم تفاعلية وسهلة الاستخدام لمساعدتك على إدارة:
 
-* العقارات
-* المستأجرين
-* الإيرادات
-* العقود
+* 🏘️ **العقارات والوحدات السكنية/التجارية**
+* 👥 **المستأجرين وبياناتهم**
+* 💰 **العقود والقيمة الإيجارية**
+* 📈 **الإيرادات والإحصائيات**
 
-المشروع معمول باستخدام **Full-Stack Architecture** وبيوفر تجربة استخدام سلسة واحترافية.
+المشروع مبني باستخدام **أحدث تقنيات Full-Stack** (Next.js 14+ و Node.js) ومصمم ليكون متجاوباً (Responsive) للعمل بكفاءة على جميع الأجهزة (الموبايل والكمبيوتر).
 
 ---
 
 ## 🎯 Features
 
-### 📊 Dashboard
-
-* عرض إحصائيات لحظية
-* عدد العقارات
-* عدد المستأجرين
-* الإيرادات الشهرية
+### 📊 Interactive Dashboard
+* عرض إحصائيات لحظية لـ:
+  * إجمالي العقارات
+  * المستأجرين النشطين
+  * الإيرادات الإجمالية
+* واجهة متجاوبة بالكامل (Mobile Responsive).
 
 ### 🏘️ Property Management
-
-* إضافة / تعديل / حذف العقارات
-* متابعة حالة الوحدة (Available / Occupied)
+* إضافة وتعديل وحذف العقارات بسلاسة.
+* متابعة حالة كل وحدة (متاح / مشغول / صيانة).
+* نظام عرض تفصيلي لبيانات العقار.
 
 ### 👤 Tenant Management
+* تسجيل بيانات المستأجرين (الاسم، الهوية، الجوال).
+* ربط المستأجرين آلياً بالوحدات السكنية المتاحة.
+* تحديث وحذف بيانات المستأجر وإخلاء الوحدة تلقائياً.
 
-* ربط المستأجر بالعقار
-* إدارة بيانات المستأجرين
+### ⏰ Contract Follow-ups
+* تتبع تواريخ بداية ونهاية العقود.
+* **تنبيه ذكي** للعقود التي تقترب من الانتهاء (خلال 30 يوم).
 
-### ⏰ Contract Alerts
-
-* تنبيه تلقائي للعقود التي تنتهي خلال 30 يوم
-
-### 🔒 Data Integrity
-
-* استخدام SQL Transactions لضمان دقة البيانات
+### 🔒 Security & Data Integrity
+* الاعتماد على تقنيات **SQL Transactions** لضمان دقة وتكامل العمليات في قاعدة البيانات (مثل حجز الشقة بالتزامن مع إضافة المستأجر).
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-
-* Next.js 14 (App Router)
-* TypeScript
-* Material UI (MUI)
-* Lucide React
+* **Framework:** Next.js (App Router)
+* **Language:** TypeScript
+* **UI/Styling:** Material UI (MUI v5) 
+* **Icons:** Lucide React
 
 ### Backend
-
-* Node.js
-* Express.js
-* PostgreSQL
-* node-postgres (pg)
+* **Environment:** Node.js
+* **Framework:** Express.js
+* **Database:** PostgreSQL (Neon DB Cloud)
+* **Connector:** node-postgres (pg)
 
 ---
 
 ## 🏗️ Project Structure
 
-```
+\`\`\`
 ├── backend/
-│   ├── db/
-│   ├── app.js
-│   └── .env
+│   ├── src/
+│   │   ├── app.js         # API Routes & Express Server
+│   │   └── db/db.js       # PostgreSQL Pool connection
+│   ├── migrate.js         # Database migrations logic
+│   └── .env               # Backend Environment variables
 │
 ├── frontend/
-│   ├── app/
-│   ├── components/
-│   └── types/
+│   ├── app/               # Next.js Pages & Layout
+│   ├── components/        # Reusable UI Components
+│   ├── types/             # TypeScript Types/Interfaces
+│   └── .env.local         # Frontend Environment variables
 │
 └── README.md
-```
+\`\`\`
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Backend
+### 1️⃣ Database Setup
+يمكنك استخدام قاعدة بيانات محلية (PostgreSQL) أو سحابية مثل [Neon.tech](https://neon.tech/).
+تأكد من تشغيل ملف `migrate.js` بالخلفية لإنشاء كافة الأعمدة والجداول المطلوبة.
 
-```bash
+### 2️⃣ Backend Initialization
+
+\`\`\`bash
 cd backend
 npm install
-```
+\`\`\`
 
-أنشئ ملف `.env`:
-
-```env
+قم بإنشاء ملف `.env` داخل مجلد الـ backend:
+\`\`\`env
+# Database connection string
+DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 PORT=5000
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_NAME=property_db
-DB_PORT=5432
-```
+\`\`\`
 
-تشغيل السيرفر:
+ابدأ السيرفر:
+\`\`\`bash
+node ./src/app.js
+# أو باستخدام nodemon للتطوير:
+# npm run dev 
+\`\`\`
 
-```bash
-npm start
-```
+### 3️⃣ Frontend Initialization
 
----
-
-### 2️⃣ Frontend
-
-```bash
+\`\`\`bash
 cd frontend
 npm install
+\`\`\`
+
+قم بإنشاء ملف `.env.local` داخل مجلد الـ frontend:
+\`\`\`env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+\`\`\`
+
+ابدأ تطبيق الواجهة الأمامية:
+\`\`\`bash
 npm run dev
-```
-
----
-
-## 🗄️ Database
-
-* PostgreSQL Database
-* تحتوي على:
-
-  * Properties
-  * Tenants
-  * Contracts
+\`\`\`
 
 ---
 
 ## 🔮 Future Improvements
 
-* إضافة نظام Login (JWT)
-* تحسين الـ UI/UX
-* إضافة Charts للإحصائيات
-* Deploy المشروع
+* [ ] إضافة نظام تسجيل الدخول والمصادقة (Authentication via JWT)
+* [ ] إضافة رسوم بيانية (Charts) للإحصائيات المالية
+* [ ] توليد التقارير في صيغة PDF و Excel
+* [x] تحسين الـ UI/UX وجعله متجاوبًا للهواتف الذكية (تم الإنجاز ✅)
 
 ---
 
 ## 👨‍💻 Author
 
-Ahmed Eid
-Software Engineering Student @ Nile University
+**Ahmed Eid**
+*Software Engineering Student @ Nile University*
 GPA: 3.7
-
 Full-Stack Developer (Next.js & Node.js)
 
 ---
@@ -158,8 +156,5 @@ MIT License
 
 ## 💡 Notes
 
-* تأكد من إضافة `.env` إلى `.gitignore`
-* لا ترفع بيانات حساسة على GitHub
-* استخدم Password قوي لقاعدة البيانات 🔐
-
----
+* تأكد من إضافة الملفات السرية زي `.env` إلى `.gitignore` دائماً.
+* للرفع (Deploy): يمكنك رفع الـ backend على Render أو Railway، والـ frontend على Vercel بسهولة.
