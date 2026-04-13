@@ -65,7 +65,7 @@ Built with the **latest Full-Stack technologies** (Next.js 14+ and Node.js), thi
 
 ## 🏗️ Project Structure
 
-\`\`\`
+```
 ├── backend/
 │   ├── src/
 │   │   ├── app.js         # API Routes & Express Server
@@ -80,7 +80,7 @@ Built with the **latest Full-Stack technologies** (Next.js 14+ and Node.js), thi
 │   └── .env.local         # Frontend Environment variables
 │
 └── README.md
-\`\`\`
+```
 
 ---
 
@@ -92,41 +92,41 @@ Make sure to execute the `migrate.js` script to create all the required tables a
 
 ### 2️⃣ Backend Initialization
 
-\`\`\`bash
+```bash
 cd backend
 npm install
-\`\`\`
+```
 
 Create a `.env` file in the backend directory:
-\`\`\`env
+```env
 # Database connection string
 DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 PORT=5000
-\`\`\`
+```
 
 Start the server:
-\`\`\`bash
+```bash
 node ./src/app.js
 # Or using nodemon for development:
 # npm run dev 
-\`\`\`
+```
 
 ### 3️⃣ Frontend Initialization
 
-\`\`\`bash
+```bash
 cd frontend
 npm install
-\`\`\`
+```
 
 Create a `.env.local` file in the frontend directory:
-\`\`\`env
+```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
-\`\`\`
+```
 
 Run the frontend app:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 ---
 
