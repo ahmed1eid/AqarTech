@@ -65,7 +65,8 @@
 
 ## 🏗️ Project Structure
 
-\`\`\`
+```bash
+
 ├── backend/
 │   ├── src/
 │   │   ├── app.js         # API Routes & Express Server
@@ -80,7 +81,7 @@
 │   └── .env.local         # Frontend Environment variables
 │
 └── README.md
-\`\`\`
+```
 
 ---
 
@@ -92,41 +93,41 @@
 
 ### 2️⃣ Backend Initialization
 
-\`\`\`bash
+```bash
 cd backend
 npm install
-\`\`\`
+```
 
 قم بإنشاء ملف `.env` داخل مجلد الـ backend:
-\`\`\`env
+```env
 # Database connection string
 DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 PORT=5000
-\`\`\`
+```
 
 ابدأ السيرفر:
-\`\`\`bash
+```bash
 node ./src/app.js
 # أو باستخدام nodemon للتطوير:
 # npm run dev 
-\`\`\`
+```
 
 ### 3️⃣ Frontend Initialization
 
-\`\`\`bash
+```bash
 cd frontend
 npm install
-\`\`\`
+```
 
 قم بإنشاء ملف `.env.local` داخل مجلد الـ frontend:
-\`\`\`env
+```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
-\`\`\`
+```
 
 ابدأ تطبيق الواجهة الأمامية:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 ---
 
