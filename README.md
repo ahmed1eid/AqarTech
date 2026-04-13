@@ -1,4 +1,4 @@
-# 🏢 Sity Expert - Property Management System
+# 🏢 Property Management System
 
 > 🚀 A modern, responsive, and full-stack property management system designed to seamlessly manage properties, tenants, and contracts.
 
