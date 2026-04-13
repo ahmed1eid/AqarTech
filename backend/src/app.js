@@ -6,7 +6,11 @@ const pool = require('./db/db');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://aqar-tech.vercel.app', 'http://localhost:3000'], // رابط موقعك و الرابط المحلي للتجربة
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 
 // --- الروابط (Routes) ---
