@@ -150,17 +150,17 @@ export default function Home() {
   return (
     <Box sx={{ p: 3, background: '#f5f7fb', minHeight: '100vh' }}>
       {/* Header Section */}
-      <Paper elevation={0} sx={{ p: 3, mb: 4, borderRadius: 3, background: 'linear-gradient(135deg, #1a237e, #3949ab)', color: '#fff' }}>
-        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+      <Paper elevation={0} sx={{ p: { xs: 2, md: 3 }, mb: 4, borderRadius: 3, background: 'linear-gradient(135deg, #1a237e, #3949ab)', color: '#fff' }}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 3, md: 0 }} sx={{ justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'center' } }}>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: 'bold' }}>لوحة التحكم</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>لوحة التحكم</Typography>
             <Typography variant="body2" sx={{ opacity: 0.8 }}>إدارة العقارات وسلاسل التوريد</Typography>
           </Box>
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" onClick={() => setIsTenantModalOpen(true)} startIcon={<Users size={20} />} sx={{ background: 'rgba(255,255,255,0.2)', color: '#fff', '&:hover': { background: 'rgba(255,255,255,0.3)' } }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: { xs: '100%', md: 'auto' } }}>
+            <Button fullWidth={{ xs: true, md: false } as any} variant="contained" onClick={() => setIsTenantModalOpen(true)} startIcon={<Users size={20} />} sx={{ background: 'rgba(255,255,255,0.2)', color: '#fff', '&:hover': { background: 'rgba(255,255,255,0.3)' } }}>
               تسجيل مستأجر
             </Button>
-            <Button variant="contained" onClick={() => { setPropertyToEdit(undefined); setIsPropertyModalOpen(true); }} startIcon={<Plus />} sx={{ background: '#fff', color: '#1a237e', fontWeight: 'bold' }}>
+            <Button fullWidth={{ xs: true, md: false } as any} variant="contained" onClick={() => { setPropertyToEdit(undefined); setIsPropertyModalOpen(true); }} startIcon={<Plus />} sx={{ background: '#fff', color: '#1a237e', fontWeight: 'bold' }}>
               إضافة عقار
             </Button>
           </Stack>
@@ -175,15 +175,15 @@ export default function Home() {
           { title: 'عقود تنتهي قريباً', value: dashboardStats.expiring_soon, icon: <AlertCircle />, color: '#ed6c02', onClick: () => setViewType('expiring') },
           { title: 'الإيرادات الشهرية', value: `${Number(dashboardStats.total_revenue).toLocaleString()} ر.س`, icon: <Receipt />, color: '#9c27b0' }
         ].map((item, i) => (
-          <Grid key={i} sx={{xs:12,sm:6,md:3}}>
+          <Grid sx={{xs:12,sm:6,md:3}} key={i}>
             <StatsCard {...item} onClick={item.onClick} />
           </Grid>
         ))}
       </Grid>
 
       {/* Dynamic Tables Section */}
-      <Paper sx={{ mt: 5, p: 3, borderRadius: 3 }}>
-        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', mb:2 }} >
+      <Paper sx={{ mt: 5, p: { xs: 2, md: 3 }, borderRadius: 3 }}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 2, md: 0 }} sx={{ justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'center' }, mb:2 }} >
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
             {viewType === 'properties' && 'العقارات والوحدات السكنية'}
             {viewType === 'tenants' && 'قائمة المستأجرين النشطين'}

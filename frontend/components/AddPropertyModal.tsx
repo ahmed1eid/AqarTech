@@ -80,7 +80,7 @@ export default function AddPropertyModal({ open, onClose, onAdd, editData }: Add
                 value={formData.name} onChange={handleChange} required
               />
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 select fullWidth label="نوع العقار" name="type"
                 value={formData.type} onChange={handleChange}
@@ -89,7 +89,7 @@ export default function AddPropertyModal({ open, onClose, onAdd, editData }: Add
                 <MenuItem value="Villa">فيلا</MenuItem>
               </TextField>
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth label="سعر الإيجار" name="rent_price"
                 type="number" value={formData.rent_price} onChange={handleChange} required

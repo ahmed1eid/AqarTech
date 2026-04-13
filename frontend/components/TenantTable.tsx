@@ -38,7 +38,7 @@ export default function TenantTable({ tenants, onDelete, onEdit }: TenantTablePr
 
   return (
     <TableContainer component={Paper} sx={{ borderRadius: 3, boxShadow: 'none', border: '1px solid #eee' }}>
-      <Table>
+      <Table sx={{ minWidth: 650 }}>
         <TableHead sx={{ bgcolor: '#f8f9fa' }}>
           <TableRow>
             <TableCell sx={{ fontWeight: 'bold' }}>المستأجر</TableCell>

@@ -113,14 +113,14 @@ export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTe
         <Divider sx={{ mb: 3 }} />
 
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
             <Grid sx={{ xs: 12 }}>
               <TextField
                 fullWidth label="الاسم الكامل" name="full_name"
                 value={formData.full_name} onChange={handleChange} required
               />
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth label="رقم الهوية" name="national_id"
                 value={formData.national_id} onChange={handleChange} required
@@ -129,7 +129,7 @@ export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTe
                 }} 
               />
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth label="رقم الجوال" name="phone_number"
                 value={formData.phone_number} onChange={handleChange} required
@@ -154,7 +154,7 @@ export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTe
                 ))}
               </TextField>
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth 
                 type="date" 
@@ -170,7 +170,7 @@ export default function AddTenantModal({ open, onClose, onAdd, editData }: AddTe
                 }}
               />
             </Grid>
-            <Grid sx={{ xs: 6 }}>
+            <Grid sx={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth 
                 type="date" 
